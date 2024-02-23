@@ -15,6 +15,8 @@ function Mime() {
   this.define = this.define.bind(this);
   this.getType = this.getType.bind(this);
   this.getExtension = this.getExtension.bind(this);
+
+  this.defaultType = 'application/octet-stream';
 }
 
 /**
@@ -84,6 +86,14 @@ Mime.prototype.getType = function(path) {
   let hasDot = ext.length < last.length - 1;
 
   return (hasDot || !hasPath) && this._types[ext] || null;
+};
+
+/**
+ * Lookup a mime type based on extension.
+ * If not found return the default type (
+ */
+Mime.prototype.getTypeWithDefault = function(path) {
+  return this.getType() || this.defaultType;
 };
 
 /**
